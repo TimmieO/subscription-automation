@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import Link from 'next/link';
+import { Link } from '@/lib/i18n';
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
@@ -15,7 +15,7 @@ export default function RegisterPage() {
   const [error, setError] = useState('');
   const router = useRouter();
   const { register } = useAuth();
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

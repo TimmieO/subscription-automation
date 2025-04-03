@@ -68,5 +68,29 @@
       "description": "Join thousands of users who are saving time with subscription automation",
       "button": "Get Started"
     }
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "basic": {
+      "title": "Basic",
+      "feature1": "Up to 5 scripts",
+      "feature2": "Basic automation",
+      "feature3": "Email support"
+    },
+    "pro": {
+      "title": "Pro",
+      "feature1": "Unlimited scripts",
+      "feature2": "Advanced automation",
+      "feature3": "Priority support"
+    },
+    "enterprise": {
+      "title": "Enterprise",
+      "price": "Contact us",
+      "feature1": "Custom solutions",
+      "feature2": "Dedicated support",
+      "feature3": "API access"
+    },
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us"
   }
 }

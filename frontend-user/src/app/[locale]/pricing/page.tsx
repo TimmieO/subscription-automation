@@ -1,12 +1,12 @@
 "use client";
 
-import { useTranslation } from '@/lib/i18n';
+import { useTranslations } from 'next-intl';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { Link } from '@/lib/i18n';
 
 export default function PricingPage() {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   return (
     <div className="container mx-auto px-4 py-8">

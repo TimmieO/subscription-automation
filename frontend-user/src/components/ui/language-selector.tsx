@@ -1,11 +1,11 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import Cookies from 'js-cookie';
+import { useRouter, usePathname } from '@/lib/i18n';
 
 const languages = [
   { code: 'en', name: 'English' },
@@ -14,14 +14,15 @@ const languages = [
 
 export function LanguageSelector() {
   const router = useRouter();
+  const pathname = usePathname();
   const locale = useLocale();
-  const { t } = useTranslation('common');
+  const t = useTranslations('nav');
 
   const changeLanguage = (newLocale: string) => {
     // Save the locale preference
     Cookies.set('NEXT_LOCALE', newLocale, { expires: 365 }); // 1 year
-    // Refresh the page to apply the new locale
-    router.refresh();
+    // Navigate to the same path with the new locale
+    router.replace(pathname, { locale: newLocale });
   };
 
   return (

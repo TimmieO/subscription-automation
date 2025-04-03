@@ -14,18 +14,18 @@ export function SideMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { user, logout } = useAuth();
-  const t = useTranslations('common');
+  const t = useTranslations('nav');
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const menuItems = [
-    { href: '/', label: t('nav.home') },
-    { href: '/pricing', label: t('nav.pricing') },
+    { href: '/', label: t('home') },
+    { href: '/pricing', label: t('pricing') },
     ...(user ? [
-      { href: '/dashboard', label: t('nav.dashboard') },
-      { href: '/scripts', label: t('nav.scripts') },
-      { href: '/executions', label: t('nav.executions') },
-      { href: '/profile', label: t('nav.profile') },
+      { href: '/dashboard', label: t('dashboard') },
+      { href: '/scripts', label: t('scripts') },
+      { href: '/executions', label: t('executions') },
+      { href: '/profile', label: t('profile') },
     ] : []),
   ];
 
@@ -70,7 +70,7 @@ export function SideMenu() {
           <div className="flex-1 overflow-y-auto">
             <div className="p-4">
               <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200">
-                {t('nav.menu')}
+                {t('menu')}
               </h2>
             </div>
             <nav className="space-y-1 px-2">
@@ -94,14 +94,14 @@ export function SideMenu() {
 
           <div className="pt-4 border-t border-slate-200 dark:border-slate-700 space-y-4">
             <div className="flex items-center justify-between px-4">
-              <span className="text-sm text-slate-600 dark:text-slate-400">{t('nav.theme')}</span>
+              <span className="text-sm text-slate-600 dark:text-slate-400">{t('theme')}</span>
               <ThemeToggle />
             </div>
             <div className="flex items-center justify-between px-4">
-              <span className="text-sm text-slate-600 dark:text-slate-400">{t('nav.language')}</span>
+              <span className="text-sm text-slate-600 dark:text-slate-400">{t('language')}</span>
               <LanguageSelector />
             </div>
-            {user && (
+            {user ? (
               <div className="px-4 pb-4">
                 <Button
                   variant="outline"
@@ -111,8 +111,16 @@ export function SideMenu() {
                     toggleMenu();
                   }}
                 >
-                  {t('nav.logout')}
+                  {t('logout')}
                 </Button>
+              </div>
+            ) : (
+              <div className="px-4 pb-4">
+                <Link href="/login" className="block" onClick={toggleMenu}>
+                  <Button className="w-full bg-primary text-white hover:bg-primary-dark">
+                    {t('login')}
+                  </Button>
+                </Link>
               </div>
             )}
           </div>
