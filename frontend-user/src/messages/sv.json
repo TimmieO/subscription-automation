@@ -6,7 +6,7 @@
     "save": "Spara",
     "cancel": "Avbryt",
     "edit": "Redigera",
-    "delete": "Radera",
+    "delete": "Ta bort",
     "back": "Tillbaka",
     "next": "Nästa",
     "previous": "Föregående",
@@ -28,34 +28,40 @@
     "invalidCredentials": "Ogiltig e-post eller lösenord",
     "registrationFailed": "Registreringen misslyckades. Försök igen."
   },
-  "navigation": {
-    "dashboard": "Dashboard",
+  "nav": {
+    "menu": "Meny",
+    "home": "Hem",
+    "pricing": "Priser",
+    "dashboard": "Instrumentpanel",
     "scripts": "Skript",
     "executions": "Körningar",
     "profile": "Profil",
-    "settings": "Inställningar"
+    "theme": "Tema",
+    "language": "Språk",
+    "logout": "Logga ut",
+    "login": "Logga in"
   },
   "home": {
     "hero": {
-      "title": "Automatisera dina uppgifter med",
-      "titleHighlight": "Subscription Automation",
-      "description": "Kör kraftfulla verktygsskript baserat på din prenumerationsnivå. Enkel, säker och effektiv automatisering för dina dagliga uppgifter.",
-      "getStarted": "Kom igång",
-      "viewScripts": "Visa skript"
+      "title": "Automatisera Dina",
+      "titleHighlight": "Prenumerationer",
+      "description": "Hantera och automatisera dina prenumerationer enkelt",
+      "getStarted": "Kom Igång",
+      "viewScripts": "Visa Script"
     },
     "features": {
       "title": "Varför välja vår plattform?",
       "easyToUse": {
-        "title": "Enkel att använda",
-        "description": "Enkelt gränssnitt för att bläddra och köra skript med bara några klick. Ingen komplex installation krävs."
+        "title": "Lätt att Använda",
+        "description": "Enkelt och intuitivt gränssnitt för att hantera dina prenumerationer"
       },
       "secure": {
-        "title": "Säker körning",
-        "description": "Alla skript körs i isolerade miljöer med lämpliga säkerhetsåtgärder för att skydda dina data."
+        "title": "Säkert",
+        "description": "Din data är krypterad och skyddad"
       },
       "flexible": {
-        "title": "Flexibla planer",
-        "description": "Välj mellan olika prenumerationsnivåer som passar dina behov och budget."
+        "title": "Flexibelt",
+        "description": "Anpassa dina automatiseringsscript efter dina behov"
       },
       "monitoring": {
         "title": "Realtidsövervakning",
@@ -71,11 +77,54 @@
       }
     },
     "cta": {
-      "title": "Redo att komma igång?",
-      "description": "Gå med i tusentals användare som redan automatiserar sina uppgifter.",
-      "button": "Skapa ditt konto",
-      "viewScripts": "Visa tillgängliga skript"
+      "title": "Börja Automatisera Idag",
+      "description": "Gå med tusentals användare som sparar tid med prenumerationsautomatisering",
+      "button": "Kom Igång"
     }
+  },
+  "pricing": {
+    "title": "Enkla, transparenta priser",
+    "basic": {
+      "title": "Grundläggande",
+      "feature1": "Upp till 100 skriptkörningar per månad",
+      "feature2": "Tillgång till grundläggande skriptbibliotek",
+      "feature3": "E-postsupport"
+    },
+    "pro": {
+      "title": "Pro",
+      "feature1": "Upp till 1 000 skriptkörningar per månad",
+      "feature2": "Tillgång till fullständigt skriptbibliotek",
+      "feature3": "Prioriterad e-postsupport"
+    },
+    "enterprise": {
+      "title": "Företag",
+      "price": "Anpassat",
+      "feature1": "Obegränsade skriptkörningar",
+      "feature2": "Anpassad skriptutveckling",
+      "feature3": "24/7 dedikerad support"
+    },
+    "getStarted": "Kom igång",
+    "contactUs": "Kontakta oss"
+  },
+  "login": {
+    "title": "Logga in på ditt konto",
+    "email": "E-post",
+    "password": "Lösenord",
+    "submit": "Logga in",
+    "noAccount": "Har du inget konto?",
+    "register": "Registrera",
+    "error": "Ogiltig e-post eller lösenord"
+  },
+  "register": {
+    "title": "Skapa ett konto",
+    "email": "E-post",
+    "password": "Lösenord",
+    "confirmPassword": "Bekräfta lösenord",
+    "submit": "Registrera",
+    "haveAccount": "Har du redan ett konto?",
+    "login": "Logga in",
+    "error": "Registreringen misslyckades. Försök igen.",
+    "passwordMismatch": "Lösenorden matchar inte"
   },
   "profile": {
     "title": "Profil",

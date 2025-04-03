@@ -1,29 +1,37 @@
 import * as React from 'react';
-import { NextIntlClientProvider } from 'next-intl';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { Providers } from '@/components/providers';
+import { locales } from '@/config/locales';
 import { notFound } from 'next/navigation';
-import { MainLayout } from '@/components/layout/main-layout';
+
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata = {
+  title: 'Subscription Automation',
+  description: 'Automate your subscription management',
+};
 
 export function generateStaticParams() {
-  return [{ locale: 'en' }, { locale: 'sv' }];
+  return locales.map((locale) => ({ locale }));
 }
 
-export default async function LocaleLayout({
+export default function RootLayout({
   children,
   params: { locale }
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  let messages;
-  try {
-    messages = (await import(`../../../public/locales/${locale}/common.json`)).default;
-  } catch (error) {
+  if (!locales.includes(locale as any)) {
     notFound();
   }
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <MainLayout>{children}</MainLayout>
-    </NextIntlClientProvider>
+    <html lang={locale} suppressHydrationWarning>
+      <body className={`${inter.className} bg-slate-50 dark:bg-slate-800 min-h-screen`}>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
   );
 } 

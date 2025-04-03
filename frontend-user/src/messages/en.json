@@ -28,124 +28,45 @@
     "invalidCredentials": "Invalid email or password",
     "registrationFailed": "Registration failed. Please try again."
   },
-  "navigation": {
+  "nav": {
+    "menu": "Menu",
+    "home": "Home",
+    "pricing": "Pricing",
     "dashboard": "Dashboard",
     "scripts": "Scripts",
     "executions": "Executions",
     "profile": "Profile",
-    "settings": "Settings"
+    "theme": "Theme",
+    "language": "Language",
+    "logout": "Logout",
+    "login": "Login"
   },
   "home": {
     "hero": {
-      "title": "Automate Your Tasks with",
-      "titleHighlight": "Subscription Automation",
-      "description": "Run powerful utility scripts based on your subscription level. Simple, secure, and efficient automation for your everyday tasks.",
+      "title": "Automate Your",
+      "titleHighlight": "Subscriptions",
+      "description": "Manage and automate your subscriptions with ease",
       "getStarted": "Get Started",
       "viewScripts": "View Scripts"
     },
     "features": {
-      "title": "Why Choose Our Platform?",
       "easyToUse": {
         "title": "Easy to Use",
-        "description": "Simple interface to browse and execute scripts with just a few clicks. No complex setup required."
+        "description": "Simple and intuitive interface for managing your subscriptions"
       },
       "secure": {
-        "title": "Secure Execution",
-        "description": "All scripts run in isolated environments with proper security measures to protect your data."
+        "title": "Secure",
+        "description": "Your data is encrypted and protected"
       },
       "flexible": {
-        "title": "Flexible Plans",
-        "description": "Choose from different subscription levels to match your needs and budget."
-      },
-      "monitoring": {
-        "title": "Real-time Monitoring",
-        "description": "Track script execution status and view detailed logs in real-time."
-      },
-      "tokens": {
-        "title": "Token System",
-        "description": "Efficient token-based usage tracking for fair resource allocation."
-      },
-      "support": {
-        "title": "24/7 Support",
-        "description": "Get help whenever you need it with our round-the-clock support team."
+        "title": "Flexible",
+        "description": "Customize your automation scripts to your needs"
       }
     },
     "cta": {
-      "title": "Ready to Get Started?",
-      "description": "Join thousands of users who are already automating their tasks.",
-      "button": "Create Your Account",
-      "viewScripts": "View Available Scripts"
+      "title": "Start Automating Today",
+      "description": "Join thousands of users who are saving time with subscription automation",
+      "button": "Get Started"
     }
-  },
-  "profile": {
-    "title": "Profile",
-    "description": "Manage your account information and preferences",
-    "personalInfo": {
-      "title": "Personal Information",
-      "saveChanges": "Save Changes"
-    },
-    "password": {
-      "title": "Change Password",
-      "currentPassword": "Current Password",
-      "newPassword": "New Password",
-      "confirmPassword": "Confirm New Password",
-      "updatePassword": "Update Password"
-    },
-    "subscription": {
-      "title": "Subscription",
-      "level": "Free",
-      "tokensRemaining": "{count} tokens remaining",
-      "manageSubscription": "Manage Subscription"
-    },
-    "preferences": {
-      "title": "Preferences",
-      "emailNotifications": {
-        "title": "Email Notifications",
-        "description": "Receive updates about your scripts"
-      },
-      "twoFactor": {
-        "title": "Two-Factor Authentication",
-        "description": "Add an extra layer of security",
-        "enable": "Enable"
-      }
-    }
-  },
-  "scripts": {
-    "title": "Available Scripts",
-    "search": "Search scripts...",
-    "filter": "Filter",
-    "categories": "Categories",
-    "popularity": "Popularity",
-    "executionTime": "Execution Time",
-    "run": "Run",
-    "viewDetails": "View Details",
-    "noScripts": "No scripts found",
-    "details": {
-      "overview": "Overview",
-      "code": "Code",
-      "history": "History",
-      "settings": "Settings",
-      "requirements": "Requirements",
-      "parameters": "Parameters",
-      "recentExecutions": "Recent Executions"
-    }
-  },
-  "executions": {
-    "title": "Execution History",
-    "search": "Search executions...",
-    "filter": "Filter",
-    "status": {
-      "success": "Success",
-      "failed": "Failed",
-      "running": "Running"
-    },
-    "script": "Script",
-    "startedAt": "Started At",
-    "endedAt": "Ended At",
-    "duration": "Duration",
-    "triggeredBy": "Triggered By",
-    "actions": "Actions",
-    "runAgain": "Run Again",
-    "noExecutions": "No executions found"
   }
-} 
+}
