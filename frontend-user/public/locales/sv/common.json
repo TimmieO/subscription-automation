@@ -1,0 +1,158 @@
+{
+  "nav": {
+    "home": "Hem",
+    "pricing": "Priser",
+    "dashboard": "Dashboard",
+    "scripts": "Skript",
+    "executions": "Körningar",
+    "profile": "Profil",
+    "login": "Logga in",
+    "register": "Registrera",
+    "logout": "Logga ut",
+    "theme": "Tema",
+    "language": "Språk",
+    "get_started": "Kom igång",
+    "learn_more": "Läs mer"
+  },
+  "home": {
+    "hero": {
+      "title": "Effektivisera din prenumerationshantering",
+      "subtitle": "Ta kontroll över dina prenumerationer med vår kraftfulla automatiseringsplattform. Spara tid, minska kostnader och missa aldrig en betalning igen."
+    },
+    "welcome": {
+      "title": "Välkommen till Script Automation",
+      "subtitle": "Effektivisera ditt arbetsflöde med kraftfulla automatiseringsverktyg"
+    },
+    "features": {
+      "title": "Varför välja vår plattform?",
+      "subtitle": "Kraftfulla funktioner för att hantera dina prenumerationer effektivt"
+    },
+    "feature1": {
+      "title": "Automatiserade betalningar",
+      "description": "Missa aldrig en betalning med vårt automatiserade prenumerationshanteringssystem."
+    },
+    "feature2": {
+      "title": "Smart analys",
+      "description": "Få insikter om dina prenumerationsutgifter och optimera din budget."
+    },
+    "feature3": {
+      "title": "Säker plattform",
+      "description": "Dina data skyddas med företagsgrad säkerhet."
+    },
+    "feature4": {
+      "title": "Tidsbesparande automatisering",
+      "description": "Automatisera upprepande uppgifter och fokusera på det som är viktigast för ditt företag."
+    },
+    "testimonials": {
+      "title": "Vad våra användare säger",
+      "subtitle": "Gå med i tusentals nöjda kunder"
+    },
+    "testimonial1": {
+      "quote": "Denna plattform har helt förändrat hur vi hanterar våra prenumerationer. Det är en spelväxlare!",
+      "name": "Sarah Johnson",
+      "role": "Finanschef"
+    },
+    "testimonial2": {
+      "quote": "Automatiseringsfunktionerna sparar oss timmar varje månad. Starkt rekommenderat!",
+      "name": "Michael Chen",
+      "role": "Företagsägare"
+    },
+    "testimonial3": {
+      "quote": "Slutligen en lösning som gör prenumerationshantering enkel och effektiv.",
+      "name": "Emily Davis",
+      "role": "Operationsdirektör"
+    },
+    "cta": {
+      "title": "Redo att komma igång?",
+      "subtitle": "Gå med i tusentals användare som har förenklat sin prenumerationshantering",
+      "button": "Starta din gratis provperiod"
+    }
+  },
+  "pricing": {
+    "title": "Enkla, Transparenta Priser",
+    "subtitle": "Välj den perfekta planen för dina prenumerationshanteringsbehov",
+    "most_popular": "Mest populär",
+    "per_month": "/månad",
+    "get_started": "Kom igång",
+    "faq": {
+      "title": "Vanliga frågor"
+    },
+    "cta": {
+      "title": "Redo att komma igång?",
+      "subtitle": "Gå med i tusentals användare som har förenklat sin prenumerationshantering",
+      "button": "Starta din gratis provperiod"
+    },
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "price": "29",
+        "description": "Perfekt för småföretag och startups",
+        "features": [
+          "Upp till 50 prenumerationer",
+          "Grundläggande analys",
+          "E-poststöd",
+          "Automatiserade betalningar",
+          "Grundläggande rapportering"
+        ]
+      },
+      "professional": {
+        "name": "Professional",
+        "price": "79",
+        "description": "Idealiskt för växande företag",
+        "features": [
+          "Upp till 200 prenumerationer",
+          "Avancerad analys",
+          "Prioriterat stöd",
+          "Anpassade arbetsflöden",
+          "Avancerad rapportering",
+          "API-åtkomst"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "199",
+        "description": "För stora organisationer",
+        "features": [
+          "Obegränsade prenumerationer",
+          "Anpassade lösningar",
+          "24/7 stöd",
+          "Dedikerad kontoansvarig",
+          "Anpassade integrationer",
+          "SLA-garanti"
+        ]
+      }
+    },
+    "faqs": {
+      "q1": "Kan jag ändra min plan senare?",
+      "a1": "Ja, du kan uppgradera eller nedgradera din plan när som helst. Ändringar kommer att återspeglas i din nästa faktureringsperiod.",
+      "q2": "Vilka betalningsmetoder accepterar ni?",
+      "a2": "Vi accepterar alla större kreditkort, PayPal och banköverföringar för företagsplaner.",
+      "q3": "Finns det en gratis provperiod?",
+      "a3": "Ja, vi erbjuder en 14-dagars gratis provperiod på alla planer. Inget kreditkort krävs.",
+      "q4": "Erbjuder ni återbetalningar?",
+      "a4": "Vi erbjuder en 30-dagars pengarna-tillbaka-garanti om du inte är nöjd med vår tjänst."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Välkommen tillbaka, {{name}}! Här är en översikt över ditt konto.",
+    "user": "Användare",
+    "stats": {
+      "scripts": "Tillgängliga skript",
+      "executions": "Körningar denna månad",
+      "tokens": "Återstående tokens",
+      "automations": "Aktiva automatiseringar"
+    },
+    "recent": {
+      "title": "Senaste körningar",
+      "script": "Skript #{{number}}",
+      "time": "Kört för 2 timmar sedan",
+      "status": "Slutförd"
+    },
+    "tokens": {
+      "title": "Tokenanvändning",
+      "usage": "{{used}} / {{total}} tokens använda",
+      "upgrade": "Uppgradera plan"
+    }
+  }
+} 

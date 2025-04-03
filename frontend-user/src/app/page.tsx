@@ -1,11 +1,11 @@
 'use client';
 
-import { useLanguage } from '@/lib/language';
+import { useTranslation } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function HomePage() {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">

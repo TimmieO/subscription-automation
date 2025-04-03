@@ -8,22 +8,24 @@ import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageSelector } from '@/components/ui/language-selector';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n';
 
 export function SideMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { user, logout } = useAuth();
+  const { t } = useTranslation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const menuItems = [
-    { href: '/', label: 'Home' },
-    { href: '/pricing', label: 'Pricing' },
+    { href: '/', label: t('nav.home') },
+    { href: '/pricing', label: t('nav.pricing') },
     ...(user ? [
-      { href: '/dashboard', label: 'Dashboard' },
-      { href: '/scripts', label: 'Scripts' },
-      { href: '/executions', label: 'Executions' },
-      { href: '/profile', label: 'Profile' },
+      { href: '/dashboard', label: t('nav.dashboard') },
+      { href: '/scripts', label: t('nav.scripts') },
+      { href: '/executions', label: t('nav.executions') },
+      { href: '/profile', label: t('nav.profile') },
     ] : []),
   ];
 
@@ -90,11 +92,11 @@ export function SideMenu() {
 
           <div className="pt-4 border-t border-slate-200 dark:border-slate-700 space-y-4">
             <div className="flex items-center justify-between px-4">
-              <span className="text-sm text-slate-600 dark:text-slate-400">Theme</span>
+              <span className="text-sm text-slate-600 dark:text-slate-400">{t('nav.theme')}</span>
               <ThemeToggle />
             </div>
             <div className="flex items-center justify-between px-4">
-              <span className="text-sm text-slate-600 dark:text-slate-400">Language</span>
+              <span className="text-sm text-slate-600 dark:text-slate-400">{t('nav.language')}</span>
               <LanguageSelector />
             </div>
             {user ? (
@@ -106,12 +108,12 @@ export function SideMenu() {
                   toggleMenu();
                 }}
               >
-                Logout
+                {t('nav.logout')}
               </Button>
             ) : (
               <Link href="/login" className="block" onClick={toggleMenu}>
                 <Button className="w-full bg-primary text-white hover:bg-primary-dark">
-                  Login
+                  {t('nav.login')}
                 </Button>
               </Link>
             )}

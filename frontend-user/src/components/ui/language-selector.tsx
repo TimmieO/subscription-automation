@@ -1,6 +1,8 @@
 import { Button } from './button';
-import { useLanguage } from '@/lib/language';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/i18n';
+import { usePathname } from 'next/navigation';
+import { isPublicPath } from '@/lib/i18n';
 
 const languages = [
   { code: 'en', name: 'English' },
@@ -9,7 +11,8 @@ const languages = [
 ];
 
 export function LanguageSelector() {
-  const { language, setLanguage, t } = useLanguage();
+  const { t, locale, changeLanguage } = useTranslation();
+  const pathname = usePathname();
 
   return (
     <div className="relative group">
@@ -37,10 +40,10 @@ export function LanguageSelector() {
           {languages.map((lang) => (
             <button
               key={lang.code}
-              onClick={() => setLanguage(lang.code as 'en' | 'sv')}
+              onClick={() => changeLanguage(lang.code as 'en' | 'sv')}
               className={cn(
                 "block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700",
-                language === lang.code && "bg-slate-100 dark:bg-slate-700"
+                locale === lang.code && "bg-slate-100 dark:bg-slate-700"
               )}
               role="menuitem"
             >

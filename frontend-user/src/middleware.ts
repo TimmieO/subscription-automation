@@ -2,12 +2,15 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import createIntlMiddleware from 'next-intl/middleware';
 
-const intlMiddleware = createIntlMiddleware({
-  locales: ['en', 'sv'],
-  defaultLocale: 'en',
-});
+// Define public paths that should have locale in URL
+const publicPaths = [
+  '/',
+  '/pricing',
+  '/login',
+  '/register',
+];
 
-// Define protected paths that require authentication
+// Define protected paths that should NOT have locale in URL
 const protectedPaths = [
   '/dashboard',
   '/scripts',
@@ -15,37 +18,76 @@ const protectedPaths = [
   '/profile',
 ];
 
+// Create the internationalization middleware
+const intlMiddleware = createIntlMiddleware({
+  locales: ['en', 'sv'],
+  defaultLocale: 'en',
+  // Always use locale prefix for public routes
+  localePrefix: 'always',
+});
+
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   
-  // Extract the locale and path without locale
-  const pathnameWithoutLocale = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, '');
+  // Skip middleware for static files and API routes
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/static') ||
+    pathname.includes('.')
+  ) {
+    return NextResponse.next();
+  }
+
+  // Check if the path is public or protected
+  const isPublicPath = publicPaths.some(path => 
+    pathname === path || pathname.startsWith(`${path}/`)
+  );
   
-  // Check if the path is protected (without locale prefix)
   const isProtectedPath = protectedPaths.some(path => 
-    pathnameWithoutLocale === path || pathnameWithoutLocale.startsWith(`${path}/`)
+    pathname === path || pathname.startsWith(`${path}/`)
   );
 
-  // Handle internationalization first
-  const response = await intlMiddleware(request);
+  // Get the locale from the path or cookie
+  const locale = pathname.split('/')[1];
+  const isLocalePath = locale === 'en' || locale === 'sv';
   
-  // If it's not a protected path, return the internationalized response
-  if (!isProtectedPath) {
-    return response;
+  // If it's a protected path, check authentication
+  if (isProtectedPath) {
+    const authCookie = request.cookies.get('auth_token');
+    
+    if (!authCookie) {
+      // Get the locale from cookie or use default
+      const userLocale = request.cookies.get('NEXT_LOCALE')?.value || 'en';
+      const url = new URL(`/${userLocale}/login`, request.url);
+      url.searchParams.set('callbackUrl', pathname);
+      return NextResponse.redirect(url);
+    }
+    
+    // For protected routes, don't apply locale prefix
+    return NextResponse.next();
   }
-
-  // For protected routes, check authentication via cookie
-  const authCookie = request.cookies.get('auth_token');
   
-  if (!authCookie) {
-    // Get the locale from the pathname or use default
-    const locale = pathname.split('/')[1] || 'en';
-    const url = new URL(`/${locale}/login`, request.url);
-    url.searchParams.set('callbackUrl', pathnameWithoutLocale);
+  // For public routes, apply internationalization
+  if (isPublicPath) {
+    // If the path already has a locale prefix, process it
+    if (isLocalePath) {
+      const response = await intlMiddleware(request);
+      response.cookies.set('NEXT_LOCALE', locale, {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 365, // 1 year
+      });
+      return response;
+    }
+
+    // If no locale prefix, redirect to the default locale
+    const defaultLocale = request.cookies.get('NEXT_LOCALE')?.value || 'en';
+    const url = new URL(`/${defaultLocale}${pathname}`, request.url);
     return NextResponse.redirect(url);
   }
-
-  return response;
+  
+  // For any other path, just continue
+  return NextResponse.next();
 }
 
 export const config = {

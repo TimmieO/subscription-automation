@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
+import { useTranslation } from '@/lib/i18n';
 import { 
   CodeIcon, 
   PlayIcon, 
@@ -11,20 +12,21 @@ import {
 
 export default function DashboardPage() {
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const stats = [
-    { name: 'Available Scripts', value: '12', icon: CodeIcon },
-    { name: 'Executions This Month', value: '24', icon: PlayIcon },
-    { name: 'Tokens Remaining', value: user?.subscription?.tokensRemaining.toString() || '0', icon: CreditCardIcon },
-    { name: 'Active Automations', value: '3', icon: ActivityIcon },
+    { name: t('dashboard.stats.scripts'), value: '12', icon: CodeIcon },
+    { name: t('dashboard.stats.executions'), value: '24', icon: PlayIcon },
+    { name: t('dashboard.stats.tokens'), value: user?.subscription?.tokensRemaining.toString() || '0', icon: CreditCardIcon },
+    { name: t('dashboard.stats.automations'), value: '3', icon: ActivityIcon },
   ];
 
   return (
     <div className="space-y-6 p-6">
       <div>
-        <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-200">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-200">{t('dashboard.title')}</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          Welcome back, {user?.firstName || 'User'}! Here's an overview of your account.
+          {t('dashboard.welcome', { name: user?.firstName || t('dashboard.user') })}
         </p>
       </div>
 
@@ -46,7 +48,7 @@ export default function DashboardPage() {
 
       <div className="grid gap-6 md:grid-cols-2">
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4 text-slate-800 dark:text-slate-200">Recent Executions</h2>
+          <h2 className="text-xl font-semibold mb-4 text-slate-800 dark:text-slate-200">{t('dashboard.recent.title')}</h2>
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
               <div key={i} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
@@ -55,12 +57,12 @@ export default function DashboardPage() {
                     <PlayIcon className="h-4 w-4 text-accent" />
                   </div>
                   <div>
-                    <p className="font-medium text-slate-800 dark:text-slate-200">Script #{i}</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">Executed 2 hours ago</p>
+                    <p className="font-medium text-slate-800 dark:text-slate-200">{t('dashboard.recent.script', { number: i })}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{t('dashboard.recent.time')}</p>
                   </div>
                 </div>
                 <span className="px-2 py-1 text-xs font-medium rounded-full bg-success/10 text-success">
-                  Completed
+                  {t('dashboard.recent.status')}
                 </span>
               </div>
             ))}
@@ -68,16 +70,16 @@ export default function DashboardPage() {
         </Card>
 
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4 text-slate-800 dark:text-slate-200">Token Usage</h2>
+          <h2 className="text-xl font-semibold mb-4 text-slate-800 dark:text-slate-200">{t('dashboard.tokens.title')}</h2>
           <div className="space-y-4">
             <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="h-full bg-primary rounded-full" style={{ width: '75%' }}></div>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-slate-500 dark:text-slate-400">750 / 1000 tokens used</span>
+              <span className="text-slate-500 dark:text-slate-400">{t('dashboard.tokens.usage', { used: 750, total: 1000 })}</span>
               <span className="text-primary font-medium">75%</span>
             </div>
-            <Button className="w-full mt-2">Upgrade Plan</Button>
+            <Button className="w-full mt-2">{t('dashboard.tokens.upgrade')}</Button>
           </div>
         </Card>
       </div>
