@@ -20,24 +20,24 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-6">
       <div>
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-200">Dashboard</h1>
+        <p className="text-slate-500 dark:text-slate-400">
           Welcome back, {user?.firstName || 'User'}! Here's an overview of your account.
         </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
-          <Card key={stat.name} className="p-6">
+          <Card key={stat.name} className="p-6 hover:shadow-lg transition-all duration-300">
             <div className="flex items-center space-x-4">
               <div className="p-2 bg-primary/10 rounded-full">
                 <stat.icon className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">{stat.name}</p>
-                <p className="text-2xl font-bold">{stat.value}</p>
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{stat.name}</p>
+                <p className="text-2xl font-bold text-slate-800 dark:text-slate-200">{stat.value}</p>
               </div>
             </div>
           </Card>
@@ -46,36 +46,38 @@ export default function DashboardPage() {
 
       <div className="grid gap-6 md:grid-cols-2">
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Recent Executions</h2>
+          <h2 className="text-xl font-semibold mb-4 text-slate-800 dark:text-slate-200">Recent Executions</h2>
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="flex items-center justify-between border-b pb-4">
-                <div>
-                  <p className="font-medium">Script #{i}</p>
-                  <p className="text-sm text-muted-foreground">Completed 2 hours ago</p>
+              <div key={i} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <div className="p-1.5 bg-accent/10 rounded-full">
+                    <PlayIcon className="h-4 w-4 text-accent" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-slate-800 dark:text-slate-200">Script #{i}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Executed 2 hours ago</p>
+                  </div>
                 </div>
-                <Button variant="outline" size="sm">View Details</Button>
+                <span className="px-2 py-1 text-xs font-medium rounded-full bg-success/10 text-success">
+                  Completed
+                </span>
               </div>
             ))}
           </div>
         </Card>
 
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Subscription Details</h2>
+          <h2 className="text-xl font-semibold mb-4 text-slate-800 dark:text-slate-200">Token Usage</h2>
           <div className="space-y-4">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Plan</span>
-              <span className="font-medium">{user?.subscription?.level || 'Free'}</span>
+            <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+              <div className="h-full bg-primary rounded-full" style={{ width: '75%' }}></div>
             </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Tokens Used</span>
-              <span className="font-medium">76 / 100</span>
+            <div className="flex justify-between text-sm">
+              <span className="text-slate-500 dark:text-slate-400">750 / 1000 tokens used</span>
+              <span className="text-primary font-medium">75%</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Renewal Date</span>
-              <span className="font-medium">May 15, 2024</span>
-            </div>
-            <Button className="w-full mt-4">Manage Subscription</Button>
+            <Button className="w-full mt-2">Upgrade Plan</Button>
           </div>
         </Card>
       </div>

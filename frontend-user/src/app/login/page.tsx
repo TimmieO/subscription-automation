@@ -30,17 +30,20 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container mx-auto flex min-h-[calc(100vh-4rem)] items-center justify-center py-8">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+    <div className="container mx-auto flex min-h-screen items-center justify-center py-8 bg-slate-50 dark:bg-slate-900">
+      <Card className="w-full max-w-md shadow-lg">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold text-center text-slate-800 dark:text-slate-200">Welcome Back</CardTitle>
+          <p className="text-center text-slate-500 dark:text-slate-400">
+            Sign in to your account to continue
+          </p>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <label
                 htmlFor="email"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                className="text-sm font-medium leading-none text-slate-800 dark:text-slate-200"
               >
                 Email
               </label>
@@ -51,12 +54,13 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="Enter your email"
+                className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200"
               />
             </div>
             <div className="space-y-2">
               <label
                 htmlFor="password"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                className="text-sm font-medium leading-none text-slate-800 dark:text-slate-200"
               >
                 Password
               </label>
@@ -67,6 +71,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="Enter your password"
+                className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200"
               />
             </div>
             {error && (
@@ -74,20 +79,17 @@ export default function LoginPage() {
             )}
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button
-              type="submit"
-              className="w-full"
+            <Button 
+              type="submit" 
+              className="w-full bg-primary text-white hover:bg-primary-dark"
               disabled={isLoading}
             >
-              {isLoading ? 'Logging in...' : 'Login'}
+              {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
-            <p className="text-center text-sm text-muted-foreground">
+            <p className="text-center text-sm text-slate-500 dark:text-slate-400">
               Don't have an account?{' '}
-              <Link
-                href="/register"
-                className="text-primary hover:underline"
-              >
-                Register
+              <Link href="/register" className="text-primary hover:underline">
+                Sign up
               </Link>
             </p>
           </CardFooter>
