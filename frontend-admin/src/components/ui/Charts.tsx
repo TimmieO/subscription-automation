@@ -12,6 +12,7 @@ import {
   ArcElement,
 } from 'chart.js';
 import { Line, Bar, Doughnut } from 'react-chartjs-2';
+import styled from 'styled-components';
 
 ChartJS.register(
   CategoryScale,
@@ -41,6 +42,30 @@ interface ChartsProps {
   tokenUsageData: ChartData;
 }
 
+const ChartsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
+
+const ChartCard = styled.div`
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  background-color: ${({ theme }) => theme.colors.surface};
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+`;
+
+const ChartTitle = styled.h2`
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: 1rem;
+`;
+
 export default function Charts({ userGrowthData, scriptExecutionData, tokenUsageData }: ChartsProps) {
   const chartOptions = {
     responsive: true,
@@ -52,25 +77,19 @@ export default function Charts({ userGrowthData, scriptExecutionData, tokenUsage
   };
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <div className="rounded-lg bg-white p-6 shadow-sm dark:bg-slate-800">
-        <h2 className="mb-4 text-lg font-medium text-slate-900 dark:text-white">
-          User Growth
-        </h2>
+    <ChartsGrid>
+      <ChartCard>
+        <ChartTitle>User Growth</ChartTitle>
         <Line options={chartOptions} data={userGrowthData} />
-      </div>
-      <div className="rounded-lg bg-white p-6 shadow-sm dark:bg-slate-800">
-        <h2 className="mb-4 text-lg font-medium text-slate-900 dark:text-white">
-          Script Executions
-        </h2>
+      </ChartCard>
+      <ChartCard>
+        <ChartTitle>Script Executions</ChartTitle>
         <Bar options={chartOptions} data={scriptExecutionData} />
-      </div>
-      <div className="rounded-lg bg-white p-6 shadow-sm dark:bg-slate-800">
-        <h2 className="mb-4 text-lg font-medium text-slate-900 dark:text-white">
-          Token Usage Distribution
-        </h2>
+      </ChartCard>
+      <ChartCard>
+        <ChartTitle>Token Usage Distribution</ChartTitle>
         <Doughnut options={chartOptions} data={tokenUsageData} />
-      </div>
-    </div>
+      </ChartCard>
+    </ChartsGrid>
   );
 } 

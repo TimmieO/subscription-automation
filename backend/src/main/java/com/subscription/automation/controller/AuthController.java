@@ -1,5 +1,7 @@
 package com.subscription.automation.controller;
 
+import com.subscription.automation.dto.LoginRequest;
+import com.subscription.automation.dto.LoginResponse;
 import com.subscription.automation.dto.ResetPasswordRequest;
 import com.subscription.automation.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,16 @@ public class AuthController {
     @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<LoginResponse> refreshToken(@RequestBody String refreshToken) {
+        return ResponseEntity.ok(authService.refreshToken(refreshToken));
     }
 
     @PostMapping("/reset-password")

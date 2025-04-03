@@ -3,62 +3,15 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    container_name: subscription-automation-mysql
+    container_name: subscription-mysql
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: telix099
+      MYSQL_DATABASE: subscription_automation
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-    networks:
-      - app-network
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: subscription-automation-backend
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}
-      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql
-    networks:
-      - app-network
-
-  frontend-user:
-    build:
-      context: ./frontend-user
-      dockerfile: Dockerfile
-    container_name: subscription-automation-frontend-user
-    ports:
-      - "3000:3000"
-    environment:
-      NEXT_PUBLIC_API_URL: http://backend:8080
-    depends_on:
-      - backend
-    networks:
-      - app-network
-
-  frontend-admin:
-    build:
-      context: ./frontend-admin
-      dockerfile: Dockerfile
-    container_name: subscription-automation-frontend-admin
-    ports:
-      - "3001:3000"
-    environment:
-      NEXT_PUBLIC_API_URL: http://backend:8080
-    depends_on:
-      - backend
     networks:
       - app-network
 
@@ -67,4 +20,5 @@ networks:
     driver: bridge
 
 volumes:
-  mysql_data: 
+  mysql_data:
+    driver: local 

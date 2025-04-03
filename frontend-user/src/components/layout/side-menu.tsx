@@ -1,22 +1,136 @@
 'use client';
 
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { useAuth } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/lib/auth';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import styled from 'styled-components';
+import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageSelector } from '@/components/ui/language-selector';
-import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
-import { Link } from '@/lib/i18n';
+
+const HamburgerButton = styled(Button)`
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+  padding: 0.5rem;
+  background-color: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.text.primary};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.text.secondary}11;
+  }
+`;
+
+const Overlay = styled.div<{ $isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+  visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+`;
+
+const SideMenuContainer = styled.div<{ $isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 16rem;
+  background-color: ${({ theme }) => theme.colors.surface};
+  z-index: 50;
+  transform: translateX(${({ $isOpen }) => ($isOpen ? '0' : '100%')});
+  transition: transform 0.2s ease-in-out;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+`;
+
+const MenuHeader = styled.div`
+  padding: 1rem;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const MenuTitle = styled.h2`
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin: 0;
+`;
+
+const CloseButton = styled(Button)`
+  padding: 0.5rem;
+  color: ${({ theme }) => theme.colors.text.primary};
+  background-color: transparent;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.text.secondary}11;
+  }
+`;
+
+const MenuContent = styled.div`
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const MenuItem = styled(Button)`
+  justify-content: flex-start;
+  padding: 0.75rem 1rem;
+  color: ${({ theme }) => theme.colors.text.primary};
+  background-color: transparent;
+  font-weight: 500;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.text.secondary}11;
+  }
+`;
+
+const MenuFooter = styled.div`
+  padding: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const MenuFooterItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+`;
+
+const MenuFooterLabel = styled.span`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.text.secondary};
+`;
 
 export function SideMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
   const { user, logout } = useAuth();
+  const router = useRouter();
   const t = useTranslations('nav');
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const handleSignOut = async () => {
+    await logout();
+    router.push('/');
+  };
 
   const menuItems = [
     { href: '/', label: t('home') },
@@ -31,101 +145,72 @@ export function SideMenu() {
 
   return (
     <>
-      {/* Hamburger Button */}
-      <button
-        onClick={toggleMenu}
-        className="fixed top-4 right-4 z-50 p-2 rounded-md text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
-        </svg>
-      </button>
+      <HamburgerButton variant="ghost" onClick={toggleMenu}>
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
+      </HamburgerButton>
 
-      {/* Overlay */}
-      <div
-        className={`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={toggleMenu}
-      />
+      <Overlay $isOpen={isOpen} onClick={toggleMenu} />
 
-      {/* Side Menu */}
-      <div
-        className={`fixed top-0 right-0 z-40 h-full w-64 bg-white dark:bg-slate-800 shadow-lg transform transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="flex flex-col h-full">
-          <div className="flex-1 overflow-y-auto">
-            <div className="p-4">
-              <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200">
-                {t('menu')}
-              </h2>
-            </div>
-            <nav className="space-y-1 px-2">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    'block px-3 py-2 rounded-md text-sm font-medium',
-                    pathname === item.href
-                      ? 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-slate-100'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
-                  )}
-                  onClick={toggleMenu}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+      <SideMenuContainer $isOpen={isOpen}>
+        <MenuHeader>
+          <MenuTitle>{t('menu')}</MenuTitle>
+          <CloseButton variant="ghost" onClick={toggleMenu}>
+            <X size={24} />
+          </CloseButton>
+        </MenuHeader>
 
-          <div className="pt-4 border-t border-slate-200 dark:border-slate-700 space-y-4">
-            <div className="flex items-center justify-between px-4">
-              <span className="text-sm text-slate-600 dark:text-slate-400">{t('theme')}</span>
-              <ThemeToggle />
-            </div>
-            <div className="flex items-center justify-between px-4">
-              <span className="text-sm text-slate-600 dark:text-slate-400">{t('language')}</span>
-              <LanguageSelector />
-            </div>
-            {user ? (
-              <div className="px-4 pb-4">
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  onClick={() => {
-                    logout();
-                    toggleMenu();
-                  }}
-                >
-                  {t('logout')}
-                </Button>
-              </div>
-            ) : (
-              <div className="px-4 pb-4">
-                <Link href="/login" className="block" onClick={toggleMenu}>
-                  <Button className="w-full bg-primary text-white hover:bg-primary-dark">
-                    {t('login')}
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+        <MenuContent>
+          {menuItems.map((item) => (
+            <MenuItem
+              key={item.href}
+              variant="ghost"
+              onClick={() => {
+                router.push(item.href);
+                setIsOpen(false);
+              }}
+            >
+              {item.label}
+            </MenuItem>
+          ))}
+        </MenuContent>
+
+        <MenuFooter>
+          <MenuFooterItem>
+            <MenuFooterLabel>{t('theme')}</MenuFooterLabel>
+            <ThemeToggle />
+          </MenuFooterItem>
+          <MenuFooterItem>
+            <MenuFooterLabel>{t('language')}</MenuFooterLabel>
+            <LanguageSelector />
+          </MenuFooterItem>
+          {user ? (
+            <Button variant="secondary" onClick={handleSignOut}>
+              {t('logout')}
+            </Button>
+          ) : (
+            <>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  router.push('/login');
+                  setIsOpen(false);
+                }}
+              >
+                {t('login')}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  router.push('/signup');
+                  setIsOpen(false);
+                }}
+              >
+                {t('signup')}
+              </Button>
+            </>
+          )}
+        </MenuFooter>
+      </SideMenuContainer>
     </>
   );
 } 

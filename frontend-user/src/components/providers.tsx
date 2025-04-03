@@ -6,6 +6,7 @@ import { AuthProvider } from '@/lib/auth';
 import { MainLayout } from '@/components/layout/main-layout';
 import { NextIntlClientProvider } from 'next-intl';
 import { useLocale } from 'next-intl';
+import { ThemeWrapper } from './providers/ThemeWrapper';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const locale = useLocale();
@@ -31,12 +32,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, [locale]);
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <AuthProvider>
-          <MainLayout>{children}</MainLayout>
-        </AuthProvider>
-      </ThemeProvider>
-    </NextIntlClientProvider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ThemeWrapper>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <AuthProvider>
+            <MainLayout>{children}</MainLayout>
+          </AuthProvider>
+        </NextIntlClientProvider>
+      </ThemeWrapper>
+    </ThemeProvider>
   );
 } 

@@ -32,7 +32,7 @@ public class DashboardService {
         return new DashboardMetrics(
             userRepository.count(),
             scriptRepository.countByActive(true),
-            scriptExecutionRepository.countByCreatedAtAfter(twentyFourHoursAgo),
+            scriptExecutionRepository.countByStartedAtAfter(twentyFourHoursAgo),
             scriptExecutionRepository.sumTokensUsedSince(twentyFourHoursAgo)
         );
     }
@@ -44,7 +44,7 @@ public class DashboardService {
 
     @Transactional(readOnly = true)
     public List<Object[]> getScriptExecutions(LocalDateTime startDate, LocalDateTime endDate) {
-        return scriptExecutionRepository.countByCreatedAtBetweenGroupByDate(startDate, endDate);
+        return scriptExecutionRepository.countByStartedAtBetweenGroupByDate(startDate, endDate);
     }
 
     @Transactional(readOnly = true)

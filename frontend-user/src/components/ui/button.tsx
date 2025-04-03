@@ -1,58 +1,116 @@
-import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+"use client";
 
-const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
-  {
-    variants: {
-      variant: {
-        default: 'bg-primary text-white shadow hover:bg-primary-dark',
-        gradient: 'bg-gradient-to-r from-primary to-accent text-white shadow hover:from-primary-dark hover:to-accent/90',
-        accent: 'bg-gradient-to-r from-accent to-info text-white shadow hover:from-accent/90 hover:to-info/90',
-        destructive: 'bg-destructive text-white shadow-sm hover:bg-destructive/90',
-        outline: 'border border-slate-200 bg-white shadow-sm hover:bg-slate-100 text-slate-800 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200',
-        secondary: 'bg-slate-100 text-slate-800 shadow-sm hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700',
-        ghost: 'hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50',
-        link: 'text-primary underline-offset-4 hover:underline',
-        success: 'bg-success text-white shadow-sm hover:bg-success/90',
-        warning: 'bg-warning text-white shadow-sm hover:bg-warning/90',
-        info: 'bg-info text-white shadow-sm hover:bg-info/90',
-      },
-      size: {
-        default: 'h-9 px-4 py-2',
-        sm: 'h-8 rounded-md px-3 text-xs',
-        lg: 'h-10 rounded-md px-8',
-        icon: 'h-9 w-9',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
-    },
-  }
-);
+import React from 'react';
+import styled, { DefaultTheme } from 'styled-components';
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
+type ButtonSize = 'sm' | 'md' | 'lg';
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  fullWidth?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button';
+const getVariantStyles = (variant: ButtonVariant, theme: DefaultTheme) => {
+  switch (variant) {
+    case 'primary':
+      return `
+        background-color: ${theme.colors.primary};
+        color: white;
+        &:hover {
+          background-color: ${theme.colors.primary}dd;
+        }
+      `;
+    case 'secondary':
+      return `
+        background-color: ${theme.colors.secondary};
+        color: white;
+        &:hover {
+          background-color: ${theme.colors.secondary}dd;
+        }
+      `;
+    case 'outline':
+      return `
+        background-color: transparent;
+        border: 1px solid ${theme.colors.primary};
+        color: ${theme.colors.primary};
+        &:hover {
+          background-color: ${theme.colors.primary}11;
+        }
+      `;
+    case 'ghost':
+      return `
+        background-color: transparent;
+        color: ${theme.colors.text.primary};
+        &:hover {
+          background-color: ${theme.colors.text.secondary}11;
+        }
+      `;
+    case 'link':
+      return `
+        background-color: transparent;
+        color: ${theme.colors.primary};
+        padding: 0;
+        &:hover {
+          text-decoration: underline;
+        }
+      `;
+    default:
+      return '';
+  }
+};
+
+const getSizeStyles = (size: ButtonSize) => {
+  switch (size) {
+    case 'sm':
+      return `
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+      `;
+    case 'md':
+      return `
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+      `;
+    case 'lg':
+      return `
+        padding: 1rem 2rem;
+        font-size: 1.125rem;
+      `;
+    default:
+      return '';
+  }
+};
+
+const StyledButton = styled.button<ButtonProps>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: none;
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+
+  ${({ variant = 'primary', theme }) => getVariantStyles(variant, theme)}
+  ${({ size = 'md' }) => getSizeStyles(size)}
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ children, ...props }, ref) => {
     return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
+      <StyledButton ref={ref} {...props}>
+        {children}
+      </StyledButton>
     );
   }
 );
 
-Button.displayName = 'Button';
-
-export { Button, buttonVariants }; 
+Button.displayName = 'Button'; 

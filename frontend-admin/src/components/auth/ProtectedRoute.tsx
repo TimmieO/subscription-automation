@@ -1,11 +1,34 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import styled from 'styled-components';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
   requiredRole: string;
 }
+
+const LoadingContainer = styled.div`
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LoadingSpinner = styled.div`
+  height: 2rem;
+  width: 2rem;
+  animation: spin 1s linear infinite;
+  border-radius: 9999px;
+  border: 4px solid ${({ theme }) => theme.colors.primary};
+  border-top-color: transparent;
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
 
 export default function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) {
   const { user, loading } = useAuth();
@@ -14,20 +37,20 @@ export default function ProtectedRoute({ children, requiredRole }: ProtectedRout
   React.useEffect(() => {
     if (!loading && !user) {
       router.push('/login');
-    } else if (!loading && user && !user.roles.includes(requiredRole)) {
+    } else if (!loading && user && (!user.roles || !user.roles.includes(requiredRole))) {
       router.push('/');
     }
   }, [user, loading, router, requiredRole]);
 
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent"></div>
-      </div>
+      <LoadingContainer>
+        <LoadingSpinner />
+      </LoadingContainer>
     );
   }
 
-  if (!user || !user.roles.includes(requiredRole)) {
+  if (!user || !user.roles || !user.roles.includes(requiredRole)) {
     return null;
   }
 

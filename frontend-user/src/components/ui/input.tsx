@@ -1,18 +1,48 @@
 import * as React from 'react';
-import { cn } from '@/lib/utils';
+import styled from 'styled-components';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
+const StyledInput = styled.input<InputProps>`
+  display: flex;
+  height: 2.5rem;
+  width: 100%;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  border: 1px solid ${({ theme }) => theme.colors.text.secondary}33;
+  background-color: ${({ theme }) => theme.colors.surface};
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.text.primary};
+  transition: all 0.2s ease-in-out;
+  
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text.secondary};
+  }
+  
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary}, 0 0 0 4px ${({ theme }) => theme.colors.primary}33;
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  &[type="file"] {
+    border: none;
+    background-color: transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+`;
+
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ type, ...props }, ref) => {
     return (
-      <input
+      <StyledInput
         type={type}
-        className={cn(
-          'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-          className
-        )}
         ref={ref}
         {...props}
       />

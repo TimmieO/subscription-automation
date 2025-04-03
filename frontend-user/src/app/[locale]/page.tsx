@@ -7,6 +7,81 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Link } from '@/lib/i18n';
 import { useTranslations } from 'next-intl';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+`;
+
+const HeroSection = styled.section`
+  text-align: center;
+  margin-bottom: 4rem;
+`;
+
+const Title = styled.h1`
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  
+  span {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+const Description = styled.p`
+  font-size: 1.25rem;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  margin-bottom: 2rem;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+`;
+
+const FeaturesSection = styled.section`
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const FeatureCard = styled(Card)`
+  padding: 1.5rem;
+`;
+
+const FeatureTitle = styled.h3`
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+`;
+
+const FeatureDescription = styled.p`
+  color: ${({ theme }) => theme.colors.text.secondary};
+`;
+
+const CTASection = styled.section`
+  text-align: center;
+`;
+
+const CTATitle = styled.h2`
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+`;
+
+const CTADescription = styled.p`
+  font-size: 1.125rem;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  margin-bottom: 2rem;
+`;
 
 export default function HomePage() {
   const router = useRouter();
@@ -21,52 +96,52 @@ export default function HomePage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <section className="text-center mb-16">
-        <h1 className="text-4xl font-bold mb-4">
-          {t('hero.title')} <span className="text-primary">{t('hero.titleHighlight')}</span>
-        </h1>
-        <p className="text-xl text-gray-600 mb-8">
+    <Container>
+      <HeroSection>
+        <Title>
+          {t('hero.title')} <span>{t('hero.titleHighlight')}</span>
+        </Title>
+        <Description>
           {t('hero.description')}
-        </p>
-        <div className="flex justify-center gap-4">
+        </Description>
+        <ButtonGroup>
           <Link href="/register">
             <Button>{t('hero.getStarted')}</Button>
           </Link>
           <Link href="/pricing">
             <Button variant="outline">{t('hero.viewScripts')}</Button>
           </Link>
-        </div>
-      </section>
+        </ButtonGroup>
+      </HeroSection>
 
-      <section className="grid md:grid-cols-3 gap-8 mb-16">
-        <Card className="p-6">
-          <h3 className="text-xl font-semibold mb-4">{t('features.easyToUse.title')}</h3>
-          <p className="text-gray-600">
+      <FeaturesSection>
+        <FeatureCard>
+          <FeatureTitle>{t('features.easyToUse.title')}</FeatureTitle>
+          <FeatureDescription>
             {t('features.easyToUse.description')}
-          </p>
-        </Card>
-        <Card className="p-6">
-          <h3 className="text-xl font-semibold mb-4">{t('features.secure.title')}</h3>
-          <p className="text-gray-600">
+          </FeatureDescription>
+        </FeatureCard>
+        <FeatureCard>
+          <FeatureTitle>{t('features.secure.title')}</FeatureTitle>
+          <FeatureDescription>
             {t('features.secure.description')}
-          </p>
-        </Card>
-        <Card className="p-6">
-          <h3 className="text-xl font-semibold mb-4">{t('features.flexible.title')}</h3>
-          <p className="text-gray-600">
+          </FeatureDescription>
+        </FeatureCard>
+        <FeatureCard>
+          <FeatureTitle>{t('features.flexible.title')}</FeatureTitle>
+          <FeatureDescription>
             {t('features.flexible.description')}
-          </p>
-        </Card>
-      </section>
+          </FeatureDescription>
+        </FeatureCard>
+      </FeaturesSection>
 
-      <section className="text-center">
-        <h2 className="text-3xl font-bold mb-8">{t('cta.title')}</h2>
-        <p className="text-lg text-gray-600 mb-8">{t('cta.description')}</p>
+      <CTASection>
+        <CTATitle>{t('cta.title')}</CTATitle>
+        <CTADescription>{t('cta.description')}</CTADescription>
         <Link href="/register">
           <Button size="lg">{t('cta.button')}</Button>
         </Link>
-      </section>
-    </div>
+      </CTASection>
+    </Container>
   );
 } 

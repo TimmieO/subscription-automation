@@ -13,17 +13,17 @@ import java.util.List;
 
 @Repository
 public interface ScriptExecutionRepository extends JpaRepository<ScriptExecution, Long> {
-    long countByCreatedAtAfter(LocalDateTime dateTime);
+    long countByStartedAtAfter(LocalDateTime dateTime);
 
-    @Query("SELECT COALESCE(SUM(se.tokensUsed), 0) FROM ScriptExecution se WHERE se.createdAt > :dateTime")
+    @Query("SELECT COALESCE(SUM(se.tokensUsed), 0) FROM ScriptExecution se WHERE se.startedAt > :dateTime")
     long sumTokensUsedSince(@Param("dateTime") LocalDateTime dateTime);
 
-    @Query("SELECT DATE(se.createdAt) as date, COUNT(se) as count " +
+    @Query("SELECT DATE(se.startedAt) as date, COUNT(se) as count " +
            "FROM ScriptExecution se " +
-           "WHERE se.createdAt BETWEEN :startDate AND :endDate " +
-           "GROUP BY DATE(se.createdAt) " +
+           "WHERE se.startedAt BETWEEN :startDate AND :endDate " +
+           "GROUP BY DATE(se.startedAt) " +
            "ORDER BY date")
-    List<Object[]> countByCreatedAtBetweenGroupByDate(
+    List<Object[]> countByStartedAtBetweenGroupByDate(
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
     );

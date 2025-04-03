@@ -39,7 +39,8 @@
     "theme": "Theme",
     "language": "Language",
     "logout": "Logout",
-    "login": "Login"
+    "login": "Login",
+    "signup": "Sign Up"
   },
   "home": {
     "hero": {

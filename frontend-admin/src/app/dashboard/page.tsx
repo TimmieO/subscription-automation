@@ -12,6 +12,7 @@ import MetricCard from '@/components/ui/MetricCard';
 import Charts from '@/components/ui/Charts';
 import DateFilter from '@/components/ui/DateFilter';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
+import styled from 'styled-components';
 
 interface DashboardMetrics {
   totalUsers: number;
@@ -29,6 +30,68 @@ interface ChartData {
     backgroundColor?: string | string[];
   }[];
 }
+
+const LoadingContainer = styled.div`
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LoadingSpinner = styled.div`
+  height: 2rem;
+  width: 2rem;
+  animation: spin 1s linear infinite;
+  border-radius: 9999px;
+  border: 4px solid ${({ theme }) => theme.colors.primary};
+  border-top-color: transparent;
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+const DashboardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const DashboardHeader = styled.div`
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.text.primary};
+  }
+
+  p {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: ${({ theme }) => theme.colors.text.secondary};
+  }
+`;
+
+const MetricsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`;
+
+const Icon = styled.div`
+  height: 1.5rem;
+  width: 1.5rem;
+  color: ${({ theme }) => theme.colors.primary};
+`;
 
 export default function DashboardPage() {
   const [metrics, setMetrics] = useState<DashboardMetrics>({
@@ -134,23 +197,19 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent"></div>
-      </div>
+      <LoadingContainer>
+        <LoadingSpinner />
+      </LoadingContainer>
     );
   }
 
   return (
     <ProtectedRoute requiredRole="ROLE_ADMIN">
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
-            Dashboard
-          </h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            Overview of your subscription automation platform
-          </p>
-        </div>
+      <DashboardContainer>
+        <DashboardHeader>
+          <h1>Dashboard</h1>
+          <p>Overview of your subscription automation platform</p>
+        </DashboardHeader>
 
         <DateFilter
           startDate={startDate}
@@ -160,37 +219,53 @@ export default function DashboardPage() {
           onPresetSelect={handlePresetSelect}
         />
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <MetricsGrid>
           <MetricCard
             title="Total Users"
             value={metrics.totalUsers}
-            icon={<UserGroupIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+            icon={
+              <Icon>
+                <UserGroupIcon />
+              </Icon>
+            }
             trend={{ value: 12, isPositive: true }}
           />
           <MetricCard
             title="Active Scripts"
             value={metrics.activeScripts}
-            icon={<DocumentTextIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+            icon={
+              <Icon>
+                <DocumentTextIcon />
+              </Icon>
+            }
           />
           <MetricCard
             title="Scripts (24h)"
             value={metrics.scriptsLast24h}
-            icon={<ClockIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+            icon={
+              <Icon>
+                <ClockIcon />
+              </Icon>
+            }
             trend={{ value: 8, isPositive: true }}
           />
           <MetricCard
             title="Tokens Used Today"
             value={metrics.tokensUsedToday}
-            icon={<CurrencyDollarIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+            icon={
+              <Icon>
+                <CurrencyDollarIcon />
+              </Icon>
+            }
           />
-        </div>
+        </MetricsGrid>
 
         <Charts
           userGrowthData={userGrowthData}
           scriptExecutionData={scriptExecutionData}
           tokenUsageData={tokenUsageData}
         />
-      </div>
+      </DashboardContainer>
     </ProtectedRoute>
   );
 } 

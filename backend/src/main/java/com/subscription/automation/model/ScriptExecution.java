@@ -40,6 +40,9 @@ public class ScriptExecution {
     @Column
     private String ipAddress;
 
+    @Column
+    private Long tokensUsed;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User executedBy;

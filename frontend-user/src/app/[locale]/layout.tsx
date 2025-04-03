@@ -4,6 +4,7 @@ import './globals.css';
 import { Providers } from '@/components/providers';
 import { locales } from '@/config/locales';
 import { notFound } from 'next/navigation';
+import { ThemeWrapper } from '@/components/providers/ThemeWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,8 +30,10 @@ export default function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${inter.className} bg-slate-50 dark:bg-slate-800 min-h-screen`}>
-        <Providers>{children}</Providers>
+      <body className={inter.className}>
+        <ThemeWrapper>
+          <Providers>{children}</Providers>
+        </ThemeWrapper>
       </body>
     </html>
   );

@@ -2,8 +2,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Button } from '@/components/styled/Button';
+import styled from 'styled-components';
 
 const navigation = [
   { name: 'Scripts', href: '/scripts' },
@@ -11,57 +11,128 @@ const navigation = [
   { name: 'Profile', href: '/profile' },
 ];
 
+const Nav = styled.nav`
+  border-bottom: 1px solid ${({ theme }) => theme.colors.text.secondary}33;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+`;
+
+const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+`;
+
+const NavLinks = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+`;
+
+const Logo = styled(Link)`
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+  transition: color 0.2s ease-in-out;
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary}dd;
+  }
+`;
+
+const NavMenu = styled.div`
+  display: none;
+  gap: 1rem;
+  @media (min-width: 768px) {
+    display: flex;
+  }
+`;
+
+const NavLink = styled(Link)<{ $active: boolean }>`
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+  color: ${({ $active, theme }) => $active ? 'white' : `${theme.colors.primary}dd`};
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary}dd;
+  }
+`;
+
+const UserInfo = styled.span`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.primary}dd;
+`;
+
+const AuthButtons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const LogoutButton = styled(Button)`
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+`;
+
+const LoginButton = styled(Button)`
+  color: white;
+`;
+
+const RegisterButton = styled(Button)`
+  background-color: white;
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
 export function Navigation() {
   const pathname = usePathname();
   const { user, logout } = useAuth();
 
   return (
-    <nav className="border-b border-slate-200 bg-primary text-white dark:border-slate-800">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <div className="flex items-center space-x-8">
-          <Link href="/" className="text-xl font-bold text-white hover:text-indigo-300 transition-colors">
+    <Nav>
+      <Container>
+        <NavLinks>
+          <Logo href="/">
             Automation Platform
-          </Link>
-          <div className="hidden space-x-4 md:flex">
+          </Logo>
+          <NavMenu>
             {navigation.map((item) => (
-              <Link
+              <NavLink
                 key={item.href}
                 href={item.href}
-                className={cn(
-                  'text-sm font-medium transition-colors',
-                  pathname === item.href
-                    ? 'text-white'
-                    : 'text-indigo-200 hover:text-indigo-300'
-                )}
+                $active={pathname === item.href}
               >
                 {item.name}
-              </Link>
+              </NavLink>
             ))}
-          </div>
-        </div>
+          </NavMenu>
+        </NavLinks>
 
-        <div className="flex items-center space-x-4">
+        <AuthButtons>
           {user ? (
             <>
-              <span className="text-sm text-indigo-200">
+              <UserInfo>
                 {user.firstName} {user.lastName}
-              </span>
-              <Button variant="outline" onClick={() => logout()} className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+              </UserInfo>
+              <LogoutButton variant="secondary" onClick={() => logout()}>
                 Logout
-              </Button>
+              </LogoutButton>
             </>
           ) : (
             <>
               <Link href="/login">
-                <Button variant="ghost" className="text-white hover:bg-white/10">Login</Button>
+                <LoginButton variant="ghost">Login</LoginButton>
               </Link>
               <Link href="/register">
-                <Button className="bg-white text-primary hover:bg-indigo-100">Register</Button>
+                <RegisterButton>Register</RegisterButton>
               </Link>
             </>
           )}
-        </div>
-      </div>
-    </nav>
+        </AuthButtons>
+      </Container>
+    </Nav>
   );
 } 

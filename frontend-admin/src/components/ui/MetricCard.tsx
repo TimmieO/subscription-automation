@@ -1,5 +1,6 @@
 import React from 'react';
 import { ReactNode } from 'react';
+import styled from 'styled-components';
 
 interface MetricCardProps {
   title: string;
@@ -11,34 +12,76 @@ interface MetricCardProps {
   };
 }
 
+const Card = styled.div`
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  background-color: ${({ theme }) => theme.colors.surface};
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+`;
+
+const CardContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const CardText = styled.div`
+  p:first-child {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.text.secondary};
+  }
+
+  p:last-child {
+    margin-top: 0.5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.text.primary};
+  }
+`;
+
+const IconContainer = styled.div`
+  border-radius: 9999px;
+  padding: 0.75rem;
+  background-color: ${({ theme }) => theme.colors.primary}11;
+`;
+
+const TrendContainer = styled.div`
+  margin-top: 1rem;
+`;
+
+const TrendValue = styled.div<{ $isPositive: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: ${({ $isPositive, theme }) => 
+    $isPositive ? theme.colors.success : theme.colors.error};
+
+  svg {
+    margin-right: 0.25rem;
+    height: 1rem;
+    width: 1rem;
+  }
+`;
+
 export default function MetricCard({ title, value, icon, trend }: MetricCardProps) {
   return (
-    <div className="rounded-lg bg-white p-6 shadow-sm dark:bg-slate-800">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
-            {title}
-          </p>
-          <p className="mt-2 text-3xl font-semibold text-slate-900 dark:text-white">
-            {value}
-          </p>
-        </div>
-        <div className="rounded-full bg-indigo-100 p-3 dark:bg-indigo-900/30">
+    <Card>
+      <CardContent>
+        <CardText>
+          <p>{title}</p>
+          <p>{value}</p>
+        </CardText>
+        <IconContainer>
           {icon}
-        </div>
-      </div>
+        </IconContainer>
+      </CardContent>
       {trend && (
-        <div className="mt-4">
-          <div
-            className={`inline-flex items-center text-sm font-medium ${
-              trend.isPositive
-                ? 'text-emerald-600 dark:text-emerald-400'
-                : 'text-red-600 dark:text-red-400'
-            }`}
-          >
+        <TrendContainer>
+          <TrendValue $isPositive={trend.isPositive}>
             {trend.isPositive ? (
               <svg
-                className="mr-1 h-4 w-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -52,7 +95,6 @@ export default function MetricCard({ title, value, icon, trend }: MetricCardProp
               </svg>
             ) : (
               <svg
-                className="mr-1 h-4 w-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -66,9 +108,9 @@ export default function MetricCard({ title, value, icon, trend }: MetricCardProp
               </svg>
             )}
             {trend.value}%
-          </div>
-        </div>
+          </TrendValue>
+        </TrendContainer>
       )}
-    </div>
+    </Card>
   );
 } 
