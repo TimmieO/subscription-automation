@@ -1,0 +1,36 @@
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+# @timmieoskarsson will be requested for review when someone
+# opens a pull request.
+*       @timmieoskarsson
+
+# Order is important; the last matching pattern takes the most
+# precedence.
+
+# Core application code
+/src/                   @timmieoskarsson
+/src/app/              @timmieoskarsson
+/src/components/       @timmieoskarsson
+/src/hooks/            @timmieoskarsson
+/src/lib/              @timmieoskarsson
+/src/styles/           @timmieoskarsson
+/src/types/            @timmieoskarsson
+/src/utils/            @timmieoskarsson
+
+# Configuration files
+*.json                 @timmieoskarsson
+*.js                   @timmieoskarsson
+*.ts                   @timmieoskarsson
+*.yml                  @timmieoskarsson
+*.yaml                 @timmieoskarsson
+
+# Documentation
+*.md                   @timmieoskarsson
+/docs/                 @timmieoskarsson
+
+# GitHub specific files
+/.github/              @timmieoskarsson
+
+# Docker files
+/Dockerfile            @timmieoskarsson
+/docker-compose.yml    @timmieoskarsson 

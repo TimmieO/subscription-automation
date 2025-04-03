@@ -1,0 +1,151 @@
+{
+  "common": {
+    "loading": "Laddar...",
+    "error": "Ett fel uppstod",
+    "success": "Lyckades",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "edit": "Redigera",
+    "delete": "Radera",
+    "back": "Tillbaka",
+    "next": "Nästa",
+    "previous": "Föregående",
+    "search": "Sök",
+    "filter": "Filtrera",
+    "actions": "Åtgärder"
+  },
+  "auth": {
+    "login": "Logga in",
+    "register": "Registrera",
+    "logout": "Logga ut",
+    "email": "E-post",
+    "password": "Lösenord",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "createAccount": "Skapa konto",
+    "alreadyHaveAccount": "Har du redan ett konto?",
+    "dontHaveAccount": "Har du inget konto?",
+    "invalidCredentials": "Ogiltig e-post eller lösenord",
+    "registrationFailed": "Registreringen misslyckades. Försök igen."
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "scripts": "Skript",
+    "executions": "Körningar",
+    "profile": "Profil",
+    "settings": "Inställningar"
+  },
+  "home": {
+    "hero": {
+      "title": "Automatisera dina uppgifter med",
+      "titleHighlight": "Subscription Automation",
+      "description": "Kör kraftfulla verktygsskript baserat på din prenumerationsnivå. Enkel, säker och effektiv automatisering för dina dagliga uppgifter.",
+      "getStarted": "Kom igång",
+      "viewScripts": "Visa skript"
+    },
+    "features": {
+      "title": "Varför välja vår plattform?",
+      "easyToUse": {
+        "title": "Enkel att använda",
+        "description": "Enkelt gränssnitt för att bläddra och köra skript med bara några klick. Ingen komplex installation krävs."
+      },
+      "secure": {
+        "title": "Säker körning",
+        "description": "Alla skript körs i isolerade miljöer med lämpliga säkerhetsåtgärder för att skydda dina data."
+      },
+      "flexible": {
+        "title": "Flexibla planer",
+        "description": "Välj mellan olika prenumerationsnivåer som passar dina behov och budget."
+      },
+      "monitoring": {
+        "title": "Realtidsövervakning",
+        "description": "Spåra skriptkörningsstatus och visa detaljerade loggar i realtid."
+      },
+      "tokens": {
+        "title": "Token-system",
+        "description": "Effektiv tokenbaserad användningsspårning för rättvis resursallokering."
+      },
+      "support": {
+        "title": "24/7 Support",
+        "description": "Få hjälp när du behöver det med vårt dygnet runt-supportteam."
+      }
+    },
+    "cta": {
+      "title": "Redo att komma igång?",
+      "description": "Gå med i tusentals användare som redan automatiserar sina uppgifter.",
+      "button": "Skapa ditt konto",
+      "viewScripts": "Visa tillgängliga skript"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Hantera din kontoinformation och inställningar",
+    "personalInfo": {
+      "title": "Personlig information",
+      "saveChanges": "Spara ändringar"
+    },
+    "password": {
+      "title": "Ändra lösenord",
+      "currentPassword": "Nuvarande lösenord",
+      "newPassword": "Nytt lösenord",
+      "confirmPassword": "Bekräfta nytt lösenord",
+      "updatePassword": "Uppdatera lösenord"
+    },
+    "subscription": {
+      "title": "Prenumeration",
+      "level": "Gratis",
+      "tokensRemaining": "{count} tokens kvar",
+      "manageSubscription": "Hantera prenumeration"
+    },
+    "preferences": {
+      "title": "Inställningar",
+      "emailNotifications": {
+        "title": "E-postaviseringar",
+        "description": "Ta emot uppdateringar om dina skript"
+      },
+      "twoFactor": {
+        "title": "Tvåfaktorsautentisering",
+        "description": "Lägg till ett extra säkerhetslager",
+        "enable": "Aktivera"
+      }
+    }
+  },
+  "scripts": {
+    "title": "Tillgängliga skript",
+    "search": "Sök skript...",
+    "filter": "Filtrera",
+    "categories": "Kategorier",
+    "popularity": "Popularitet",
+    "executionTime": "Körningstid",
+    "run": "Kör",
+    "viewDetails": "Visa detaljer",
+    "noScripts": "Inga skript hittades",
+    "details": {
+      "overview": "Översikt",
+      "code": "Kod",
+      "history": "Historik",
+      "settings": "Inställningar",
+      "requirements": "Krav",
+      "parameters": "Parametrar",
+      "recentExecutions": "Senaste körningar"
+    }
+  },
+  "executions": {
+    "title": "Körningshistorik",
+    "search": "Sök körningar...",
+    "filter": "Filtrera",
+    "status": {
+      "success": "Lyckades",
+      "failed": "Misslyckades",
+      "running": "Körs"
+    },
+    "script": "Skript",
+    "startedAt": "Startades",
+    "endedAt": "Avslutades",
+    "duration": "Varaktighet",
+    "triggeredBy": "Utlöst av",
+    "actions": "Åtgärder",
+    "runAgain": "Kör igen",
+    "noExecutions": "Inga körningar hittades"
+  }
+} 
